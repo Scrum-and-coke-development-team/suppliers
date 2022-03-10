@@ -77,21 +77,21 @@ class TestPetServer(unittest.TestCase):
         db.session.remove()
         db.drop_all()
 
-    def _create_pets(self, count):
+    def _create_suppliers(self, count):
         """Factory method to create pets in bulk"""
-        pets = []
+        suppliers = []
         for _ in range(count):
-            test_pet = PetFactory()
+            test_supplier = SupplierFactory()
             resp = self.app.post(
-                BASE_URL, json=test_pet.serialize(), content_type=CONTENT_TYPE_JSON
+                BASE_URL, json=test_supplier.serialize(), content_type=CONTENT_TYPE_JSON
             )
             self.assertEqual(
-                resp.status_code, status.HTTP_201_CREATED, "Could not create test pet"
+                resp.status_code, status.HTTP_201_CREATED, "Could not create test supplier"
             )
-            new_pet = resp.get_json()
-            test_pet.id = new_pet["id"]
-            pets.append(test_pet)
-        return pets
+            new_supplier = resp.get_json()
+            test_supplier.id = new_supplier["id"]
+            suppliers.append(test_supplier)
+        return suppliers
 
     def test_index(self):
         """Test the Home Page"""

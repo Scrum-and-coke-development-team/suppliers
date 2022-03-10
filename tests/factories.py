@@ -20,8 +20,8 @@ from factory.fuzzy import FuzzyChoice
 from service.models import Supplier
 
 
-class PetFactory(factory.Factory):
-    """Creates fake suppliers that you don't have to feed"""
+class SupplierFactory(factory.Factory):
+    """Creates fake suppliers that you don't have to put on your website"""
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Maps factory to data model"""

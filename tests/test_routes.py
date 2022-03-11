@@ -211,17 +211,17 @@ class TestPetServer(unittest.TestCase):
         updated_pet = resp.get_json()
         self.assertEqual(updated_pet["category"], "unknown")
 
-    def test_delete_pet(self):
-        """Delete a Pet"""
-        test_pet = self._create_pets(1)[0]
+    def test_delete_supplier(self):
+        """Delete a Supplier"""
+        test_supplier = self._create_suppliers(1)[0]
         resp = self.app.delete(
-            "{0}/{1}".format(BASE_URL, test_pet.id), content_type=CONTENT_TYPE_JSON
+            "{0}/{1}".format(BASE_URL, test_supplier.id), content_type=CONTENT_TYPE_JSON
         )
         self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(len(resp.data), 0)
         # make sure they are deleted
         resp = self.app.get(
-            "{0}/{1}".format(BASE_URL, test_pet.id), content_type=CONTENT_TYPE_JSON
+            "{0}/{1}".format(BASE_URL, test_supplier.id), content_type=CONTENT_TYPE_JSON
         )
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 

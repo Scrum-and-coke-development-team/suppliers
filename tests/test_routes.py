@@ -21,7 +21,7 @@ Test cases can be run with the following:
   codecov --token=$CODECOV_TOKEN
 
   While debugging just these tests it's convenient to use this:
-    nosetests --stop tests/test_service.py:TestPetServer
+    nosetests --stop tests/test_service.py:TestSupplierServer
 """
 
 import os
@@ -32,7 +32,7 @@ import unittest
 from urllib.parse import quote_plus
 from service import app, status
 from service.models import db, init_db
-from .factories import PetFactory
+from .factories import SupplierFactory
 
 # Disable all but critical errors during normal test run
 # uncomment for debugging failing tests
@@ -49,8 +49,8 @@ CONTENT_TYPE_JSON = "application/json"
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
-class TestPetServer(unittest.TestCase):
-    """Pet Server Tests"""
+class TestSupplierServer(unittest.TestCase):
+    """Supplier Server Tests"""
 
     @classmethod
     def setUpClass(cls):

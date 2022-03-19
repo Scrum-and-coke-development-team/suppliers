@@ -87,7 +87,7 @@ class TestSupplierModel(unittest.TestCase):
     def test_add_a_supplier(self):
         """Create a supplier and add it to the database"""
         suppliers = Supplier.all()
-        self.assertEqual(supplier, [])
+        self.assertEqual(suppliers, [])
         supplier = Supplier(name="amazon", category="drugs", available=True)
         self.assertTrue(supplier is not None)
         self.assertEqual(supplier.id, None)

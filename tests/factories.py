@@ -29,7 +29,7 @@ class SupplierFactory(factory.Factory):
         model = Supplier
 
     id = factory.Sequence(lambda n: n)
-    name = factory.Faker("supplier_name")
+    name = factory.Faker("company")
     category = FuzzyChoice(choices=["computing", "foods", "cosmetics", "drugs"])
     available = FuzzyChoice(choices=[True, False])
 #    gender = FuzzyChoice(choices=[Gender.MALE, Gender.FEMALE, Gender.UNKNOWN])

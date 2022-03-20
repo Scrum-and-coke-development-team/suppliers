@@ -42,7 +42,7 @@ logging.disable(logging.CRITICAL)
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/testdb"
 )
-BASE_URL = "/pets"
+BASE_URL = "/suppliers"
 CONTENT_TYPE_JSON = "application/json"
 
 
@@ -124,12 +124,12 @@ class TestSupplierServer(unittest.TestCase):
         resp = self.app.get("/pets/0")
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
-    def test_create_pet(self):
+    def test_create_supplier(self):
         """Create a new Pet"""
-        test_pet = PetFactory()
-        logging.debug(test_pet)
+        test_supplier = SupplierFactory()
+        logging.debug(test_supplier)
         resp = self.app.post(
-            BASE_URL, json=test_pet.serialize(), content_type=CONTENT_TYPE_JSON
+            BASE_URL, json=test_supplier.serialize(), content_type=CONTENT_TYPE_JSON
         )
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
         # Make sure location header is set
@@ -137,23 +137,23 @@ class TestSupplierServer(unittest.TestCase):
         self.assertIsNotNone(location)
         # Check the data is correct
         new_pet = resp.get_json()
-        self.assertEqual(new_pet["name"], test_pet.name, "Names do not match")
+        self.assertEqual(new_supplier["name"], test_supplier.name, "Names do not match")
         self.assertEqual(
-            new_pet["category"], test_pet.category, "Categories do not match"
+            new_supplier["category"], test_supplier.category, "Categories do not match"
         )
         self.assertEqual(
-            new_pet["available"], test_pet.available, "Availability does not match"
+            new_supplier["available"], test_supplier.available, "Availability does not match"
         )
         # Check that the location header was correct
         resp = self.app.get(location, content_type=CONTENT_TYPE_JSON)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        new_pet = resp.get_json()
-        self.assertEqual(new_pet["name"], test_pet.name, "Names do not match")
+        new_supplier = resp.get_json()
+        self.assertEqual(new_supplier["name"], test_supplier.name, "Names do not match")
         self.assertEqual(
-            new_pet["category"], test_pet.category, "Categories do not match"
+            new_supplier["category"], test_supplier.category, "Categories do not match"
         )
         self.assertEqual(
-            new_pet["available"], test_pet.available, "Availability does not match"
+            new_supplier["available"], test_supplier.available, "Availability does not match"
         )
 
     # def test_create_pet_no_data(self):

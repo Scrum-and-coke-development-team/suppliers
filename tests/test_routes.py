@@ -100,24 +100,24 @@ class TestPetServer(unittest.TestCase):
         data = resp.get_json()
         self.assertEqual(data["name"], "Pet Demo REST API Service")
 
-    def test_get_pet_list(self):
-        """Get a list of Pets"""
-        self._create_pets(5)
+    def test_get_supplier_list(self):
+        """Get a list of Suppliers"""
+        self._create_suppliers(5)
         resp = self.app.get(BASE_URL)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         self.assertEqual(len(data), 5)
 
-    def test_get_pet(self):
-        """Get a single Pet"""
-        # get the id of a pet
-        test_pet = self._create_pets(1)[0]
+    def test_get_supplier(self):
+        """Get a single Supplier"""
+        # get the id of a supplier
+        test_supplier = self._create_suppliers(1)[0]
         resp = self.app.get(
-            "/pets/{}".format(test_pet.id), content_type=CONTENT_TYPE_JSON
+            "/suppliers/{}".format(test_supplier.id), content_type=CONTENT_TYPE_JSON
         )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
-        self.assertEqual(data["name"], test_pet.name)
+        self.assertEqual(data["name"], test_supplier.name)
 
     def test_get_pet_not_found(self):
         """Get a Pet thats not found"""

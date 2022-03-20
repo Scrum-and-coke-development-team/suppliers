@@ -1,4 +1,4 @@
-# lab-flask-tdd
+# Suppliers Team
 
 
 [![Build Status](https://github.com/nyu-devops/lab-flask-tdd/actions/workflows/workflow.yml/badge.svg)](https://github.com/nyu-devops/lab-flask-tdd/actions)
@@ -9,22 +9,13 @@ NYU DevOps lab on **Test Driven Development**
 
 ## Introduction
 
-One of my favorite quotes is:
+In this sprint (Sprint 1), we will begin developing the back end for an eCommerce website as a collection RESTful services for a client. Our squad will develop and run the Suppliers service end-to-end. In the Suppliers service, we will address the vendors that the website gets products from using the Test Driven Development techniques that we learned in class. We will develop the service and use List, Read, Create, Update, and Delete functions based on the Stories we wrote in Sprint 0.
 
-_“If it's worth building, it's worth testing.
-If it's not worth testing, why are you wasting your time working on it?”_
-
-As Software Engineers we need to have the discipline to ensure that our code works as expected and continues to do so regardless of any changes, refactoring, or the introduction of new functionality.
-
-You can read more about my thoughts on TDD in the article: [A Case for Test Driven Development](https://johnrofrano.medium.com/a-case-for-test-driven-development-7d9a552e0a16)
-
-This lab introduces **Test Driven Development** using `PyUnit` and `nose` (a.k.a. `nosetests`). It also demonstrates how to create a simple RESTful service using Python Flask and PostgreSQL. The resource model is persistences using SQLAlchemy to keep the application simple. It's purpose is to show the correct API calls and return codes that should be used for a REST API.
-
-**Note:** The base service code is contained in `routes.py` while the business logic for manipulating Pets is in the `models.py` file. This follows the popular Model View Controller (MVC) separation of duities by keeping the model separate from the controller. As such, we have two test suites: one for the model (`test_models.py`) and one for the service itself (`test_routes.py`)
+**Note:** The base service code is contained in `routes.py` while the business logic for manipulating Suppliers is in the `models.py` file. This follows the popular Model View Controller (MVC) separation of duities by keeping the model separate from the controller. As such, we have two test suites: one for the model (`test_models.py`) and one for the service itself (`test_routes.py`)
 
 ## Prerequisite Software Installation
 
-This lab uses Docker and Visual Studio Code with the Remote Containers extension to provide a consistent repeatable disposable development environment for all of the labs in this course.
+This sprint uses Docker and Visual Studio Code with the Remote Containers extension to provide a consistent repeatable disposable development environment for all of the sprints in this course.
 
 You will need the following software installed:
 

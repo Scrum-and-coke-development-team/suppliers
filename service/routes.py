@@ -13,15 +13,15 @@
 # limitations under the License.
 
 """
-Pet Store Service
+Supplier Resource Service
 
 Paths:
 ------
-GET /pets - Returns a list all of the Pets
-GET /pets/{id} - Returns the Pet with a given id number
-POST /pets - creates a new Pet record in the database
-PUT /pets/{id} - updates a Pet record in the database
-DELETE /pets/{id} - deletes a Pet record in the database
+GET /suppliers - Returns a list all of the Suppliers
+GET /suppliers/{id} - Returns the Supplier with a given id number
+POST /suppliers - creates a new Supplier record in the database
+PUT /suppliers/{id} - updates a Supplier record in the database
+DELETE /suppliers/{id} - deletes a Supplier record in the database
 """
 
 from flask import jsonify, request, url_for, make_response, abort

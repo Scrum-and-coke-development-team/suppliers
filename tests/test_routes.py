@@ -189,27 +189,27 @@ class TestSupplierServer(unittest.TestCase):
     #     )
     #     self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_update_pet(self):
-        """Update an existing Pet"""
-        # create a pet to update
-        test_pet = PetFactory()
+    def test_update_supplier(self):
+        """Update an existing Supplier"""
+        # create a supplier to update
+        test_supplier = SupplierFactory()
         resp = self.app.post(
-            BASE_URL, json=test_pet.serialize(), content_type=CONTENT_TYPE_JSON
+            BASE_URL, json=test_supplier.serialize(), content_type=CONTENT_TYPE_JSON
         )
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
 
-        # update the pet
-        new_pet = resp.get_json()
-        logging.debug(new_pet)
-        new_pet["category"] = "unknown"
+        # update the supplier
+        new_supplier = resp.get_json()
+        logging.debug(new_supplier)
+        new_supplier["category"] = "unknown"
         resp = self.app.put(
-            "/pets/{}".format(new_pet["id"]),
-            json=new_pet,
+            "/supupliers/{}".format(new_supplier["id"]),
+            json=new_supplier,
             content_type=CONTENT_TYPE_JSON,
         )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        updated_pet = resp.get_json()
-        self.assertEqual(updated_pet["category"], "unknown")
+        updated_supplier = resp.get_json()
+        self.assertEqual(updated_supplier["category"], "unknown")
 
     def test_delete_supplier(self):
         """Delete a Supplier"""

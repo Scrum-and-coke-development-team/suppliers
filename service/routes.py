@@ -70,22 +70,22 @@ def list_suppliers():
 
 
 ######################################################################
-# RETRIEVE A PET
+# RETRIEVE A SUPPLIER
 ######################################################################
-@app.route("/pets/<int:pet_id>", methods=["GET"])
-def get_pets(pet_id):
+@app.route("/suppliers/<int:supplier_id>", methods=["GET"])
+def get_suppliers(supplier_id):
     """
-    Retrieve a single Pet
+    Retrieve a single Supplier
 
-    This endpoint will return a Pet based on it's id
+    This endpoint will return a Supplier based on it's id
     """
-    app.logger.info("Request for pet with id: %s", pet_id)
-    pet = Pet.find(pet_id)
-    if not pet:
-        raise NotFound("Pet with id '{}' was not found.".format(pet_id))
+    app.logger.info("Request for supplier with id: %s", supplier_id)
+    supplier = Supplier.find(supplier_id)
+    if not supplier:
+        raise NotFound("Supplier with id '{}' was not found.".format(supplier_id))
 
-    app.logger.info("Returning pet: %s", pet.name)
-    return make_response(jsonify(pet.serialize()), status.HTTP_200_OK)
+    app.logger.info("Returning supplier: %s", supplier.name)
+    return make_response(jsonify(supplier.serialize()), status.HTTP_200_OK)
 
 
 ######################################################################

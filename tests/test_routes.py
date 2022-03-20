@@ -119,9 +119,9 @@ class TestSupplierServer(unittest.TestCase):
         data = resp.get_json()
         self.assertEqual(data["name"], test_supplier.name)
 
-    def test_get_pet_not_found(self):
-        """Get a Pet thats not found"""
-        resp = self.app.get("/pets/0")
+    def test_get_supplier_not_found(self):
+        """Get a Supplier thats not found"""
+        resp = self.app.get("/suppliers/0")
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_create_supplier(self):

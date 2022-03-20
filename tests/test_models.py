@@ -80,8 +80,8 @@ class TestSupplierModel(unittest.TestCase):
         self.assertEqual(supplier.category, "drugs")
         self.assertEqual(supplier.available, True)
         # self.assertEqual(pet.gender, Gender.MALE)
-        # supplier = Supplier(name="Fido", category="dog", available=False, gender=Gender.FEMALE)
-        # self.assertEqual(pet.available, False)
+        supplier = Supplier(name="amazon", category="drugs", available=False)
+        self.assertEqual(supplier.available, False)
         # self.assertEqual(pet.gender, Gender.FEMALE)
 
     def test_add_a_supplier(self):
@@ -229,8 +229,8 @@ class TestSupplierModel(unittest.TestCase):
         suppliers = Supplier.find_by_availability(False)
         supplier_list = list(suppliers)
         self.assertEqual(len(supplier_list), 1)
-        self.assertEqual(suppliers[0].name, "amazon")
-        self.assertEqual(suppliers[0].category, "drugs")
+        self.assertEqual(suppliers[0].name, "walmart")
+        self.assertEqual(suppliers[0].category, "cosmetics")
         suppliers = Supplier.find_by_availability(True)
         supplier_list = list(suppliers)
         self.assertEqual(len(supplier_list), 2)

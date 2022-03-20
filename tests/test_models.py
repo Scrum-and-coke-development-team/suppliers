@@ -80,8 +80,8 @@ class TestSupplierModel(unittest.TestCase):
         self.assertEqual(supplier.category, "drugs")
         self.assertEqual(supplier.available, True)
         # self.assertEqual(pet.gender, Gender.MALE)
-        # supplier = Supplier(name="Fido", category="dog", available=False, gender=Gender.FEMALE)
-        # self.assertEqual(pet.available, False)
+        supplier = Supplier(name="amazon", category="drugs", available=False)
+        self.assertEqual(supplier.available, False)
         # self.assertEqual(pet.gender, Gender.FEMALE)
 
     def test_add_a_supplier(self):

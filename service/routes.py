@@ -112,26 +112,26 @@ def create_pets():
 
 
 ######################################################################
-# UPDATE AN EXISTING PET
+# UPDATE AN EXISTING SUPPLIER
 ######################################################################
-@app.route("/pets/<int:pet_id>", methods=["PUT"])
-def update_pets(pet_id):
+@app.route("/suppliers/<int:supplier_id>", methods=["PUT"])
+def update_suppliers(supplier_id):
     """
-    Update a Pet
+    Update a Supplier
 
-    This endpoint will update a Pet based the body that is posted
+    This endpoint will update a Supplier based the body that is posted
     """
-    app.logger.info("Request to update pet with id: %s", pet_id)
+    app.logger.info("Request to update supplier with id: %s", supplier_id)
     check_content_type("application/json")
-    pet = Pet.find(pet_id)
-    if not pet:
-        raise NotFound("Pet with id '{}' was not found.".format(pet_id))
-    pet.deserialize(request.get_json())
-    pet.id = pet_id
-    pet.update()
+    supplier = Supplier.find(supplier_id)
+    if not supplier: 
+        raise NotFound("Supplier with id '{}' was not found.".format(supplier_id))
+    supplier.deserialize(request.get_json())
+    supplier.id = supplier_id
+    supplier.update()
 
-    app.logger.info("Pet with ID [%s] updated.", pet.id)
-    return make_response(jsonify(pet.serialize()), status.HTTP_200_OK)
+    app.logger.info("Supplier with ID [%s] updated.", supplier.id)
+    return make_response(jsonify(supplier.serialize()), status.HTTP_200_OK)
 
 
 ######################################################################

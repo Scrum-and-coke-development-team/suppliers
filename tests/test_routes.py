@@ -156,26 +156,26 @@ class TestSupplierServer(unittest.TestCase):
             new_supplier["available"], test_supplier.available, "Availability does not match"
         )
 
-    # def test_create_pet_no_data(self):
-    #     """Create a Pet with missing data"""
-    #     resp = self.app.post(BASE_URL, json={}, content_type=CONTENT_TYPE_JSON)
-    #     self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+    def test_create_supplier_no_data(self):
+        """Create a Supplier with missing data"""
+        resp = self.app.post(BASE_URL, json={}, content_type=CONTENT_TYPE_JSON)
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    # def test_create_pet_no_content_type(self):
-    #     """Create a Pet with no content type"""
-    #     resp = self.app.post(BASE_URL)
-    #     self.assertEqual(resp.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
+    def test_create_supplier_no_content_type(self):
+        """Create a supplier with no content type"""
+        resp = self.app.post(BASE_URL)
+        self.assertEqual(resp.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
-    # def test_create_pet_bad_available(self):
-    #     """ Create a Pet with bad available data """
-    #     test_pet = PetFactory()
-    #     logging.debug(test_pet)
-    #     # change available to a string
-    #     test_pet.available = "true"
-    #     resp = self.app.post(
-    #         BASE_URL, json=test_pet.serialize(), content_type="application/json"
-    #     )
-    #     self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+    def test_create_supplier_bad_available(self):
+        """ Create a supplier with bad available data """
+        test_supplier = SupplierFactory()
+        logging.debug(test_supplier)
+        # change available to a string
+        test_supplier.available = "true"
+        resp = self.app.post(
+            BASE_URL, json=test_supplier.serialize(), content_type="application/json"
+        )
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     # def test_create_pet_bad_gender(self):
     #     """ Create a Pet with bad available data """
@@ -240,16 +240,16 @@ class TestSupplierServer(unittest.TestCase):
         for supplier in data:
             self.assertEqual(supplier["category"], test_category)
 
-    # @patch('service.routes.Pet.find_by_name')
-    # def test_bad_request(self, bad_request_mock):
-    #     """ Test a Bad Request error from Find By Name """
-    #     bad_request_mock.side_effect = DataValidationError()
-    #     resp = self.app.get(BASE_URL, query_string='name=fido')
-    #     self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+   # @patch('service.routes.Supplier.find_by_name')
+    def test_bad_request(self, bad_request_mock):
+        """ Test a Bad Request error from Find By Name """
+        bad_request_mock.side_effect = DataValidationError()
+        resp = self.app.get(BASE_URL, query_string='name=walmart')
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     # @patch('service.routes.Pet.find_by_name')
-    # def test_mock_search_data(self, pet_find_mock):
-    #     """ Test showing how to mock data """
-    #     pet_find_mock.return_value = [MagicMock(serialize=lambda: {'name': 'fido'})]
-    #     resp = self.app.get(BASE_URL, query_string='name=fido')
-    #     self.assertEqual(resp.status_code, status.HTTP_200_OK)
+    def test_mock_search_data(self, supplier_find_mock):
+        """ Test showing how to mock data """
+        supplier_find_mock.return_value = [MagicMock(serialize=lambda: {'name': 'walmart'})]
+        resp = self.app.get(BASE_URL, query_string='name=walmart')
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)

@@ -98,7 +98,7 @@ class TestSupplierServer(unittest.TestCase):
         resp = self.app.get("/")
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
-        self.assertEqual(data["name"], "Pet Demo REST API Service")
+        self.assertEqual(data["name"], "Supplier REST API Service")
 
     def test_get_supplier_list(self):
         """Get a list of Suppliers"""

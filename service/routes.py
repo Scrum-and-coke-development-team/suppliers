@@ -57,10 +57,14 @@ def list_suppliers():
     suppliers = []
     category = request.args.get("category")
     name = request.args.get("name")
+    availability = request.args.get("availability"
+
     if category:
         suppliers = Supplier.find_by_category(category)
     elif name:
         suppliers = Supplier.find_by_name(name)
+    elif availability:
+        suppliers = Supplier.find_by_availability(availability)
     else:
         suppliers = Supplier.all()
 

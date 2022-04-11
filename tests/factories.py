@@ -32,4 +32,5 @@ class SupplierFactory(factory.Factory):
     name = factory.Faker("company")
     category = FuzzyChoice(choices=["computing", "foods", "cosmetics", "drugs"])
     available = FuzzyChoice(choices=[True, False])
+    status = "enabled"
 #    gender = FuzzyChoice(choices=[Gender.MALE, Gender.FEMALE, Gender.UNKNOWN])

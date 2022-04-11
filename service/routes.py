@@ -57,7 +57,7 @@ def list_suppliers():
     suppliers = []
     category = request.args.get("category")
     name = request.args.get("name")
-    availability = request.args.get("availability"
+    availability = request.args.get("availability")
 
     if category:
         suppliers = Supplier.find_by_category(category)
@@ -172,3 +172,25 @@ def check_content_type(media_type):
         status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
         "Content-Type must be {}".format(media_type),
     )
+
+######################################################################
+#  A C T I O N   E N D P O I N T  F U N C T I O N 
+######################################################################
+@app.route("/suppliers/<int:supplier_id>/disable", methods=["PUT"])
+def disable_suppliers(supplier_id):
+    """
+    Update Supplier status to disabled
+
+    This endpoint will update a Supplier based the body that is posted
+    """
+    app.logger.info("Request to disable supplier with id: %s", supplier_id)
+    check_content_type("application/json")
+    supplier = Supplier.find(supplier_id)
+    if not supplier: 
+        raise NotFound("Supplier with id '{}' was not found.".format(supplier_id))
+    supplier.deserialize(request.get_json())
+    supplier.status = "disabled"
+    supplier.update()
+
+    app.logger.info("Supplier with ID [%s] disabled.", supplier.id)
+    return make_response(jsonify(supplier.serialize()), status.HTTP_200_OK)

@@ -36,7 +36,7 @@ from .factories import SupplierFactory
 
 # Disable all but critical errors during normal test run
 # uncomment for debugging failing tests
-logging.disable(logging.CRITICAL)
+# logging.disable(logging.CRITICAL)
 
 # DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite:///../db/test.db')
 DATABASE_URI = os.getenv(
@@ -254,3 +254,24 @@ class TestSupplierServer(unittest.TestCase):
 #         supplier_find_mock.return_value = [MagicMock(serialize=lambda: {'name': 'walmart'})]
 #         resp = self.app.get(BASE_URL, query_string='name=walmart')
 #         self.assertEqual(resp.status_code, status.HTTP_200_OK)
+
+    def test_disable_supplier(self):
+            """Disable an existing Supplier"""
+            # create a supplier to disable
+            test_supplier = SupplierFactory()
+            resp = self.app.post(
+                BASE_URL, json=test_supplier.serialize(), content_type=CONTENT_TYPE_JSON
+            )
+            self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+
+            # Disable the supplier
+            new_supplier = resp.get_json()
+            logging.debug(new_supplier)
+            resp = self.app.put(
+                "/suppliers/{}/disable".format(new_supplier["id"]),
+                json=new_supplier,
+                content_type=CONTENT_TYPE_JSON,
+            )
+            self.assertEqual(resp.status_code, status.HTTP_200_OK)
+            updated_supplier = resp.get_json()
+            self.assertEqual(updated_supplier["status"], "disabled")

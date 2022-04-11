@@ -71,6 +71,8 @@ class Supplier(db.Model):
     name = db.Column(db.String(63), nullable=False)
     category = db.Column(db.String(63), nullable=False)
     available = db.Column(db.Boolean(), nullable=False, default=False)
+    status = db.Column(db.String(63), nullable=False)
+
     #gender = db.Column(
     #    db.Enum(Gender), nullable=False, server_default=(Gender.UNKNOWN.name)
     #)
@@ -114,6 +116,7 @@ class Supplier(db.Model):
             "name": self.name,
             "category": self.category,
             "available": self.available,
+            "status": self.status
  #           "gender": self.gender.name,  # convert enum to string
         }
 
@@ -134,6 +137,7 @@ class Supplier(db.Model):
                     + str(type(data["available"]))
                 )
         #     self.gender = getattr(Gender, data["gender"])  # create enum from string
+            self.status = data["status"]
         except AttributeError as error:
             raise DataValidationError("Invalid attribute: " + error.args[0])
         except KeyError as error:
@@ -143,7 +147,7 @@ class Supplier(db.Model):
                 "Invalid supplier: body of request contained bad or no data " + str(error)
             )
         return self
-
+#
     ##################################################
     # CLASS METHODS
     ##################################################

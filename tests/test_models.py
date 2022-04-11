@@ -80,7 +80,7 @@ class TestSupplierModel(unittest.TestCase):
         self.assertEqual(supplier.category, "drugs")
         self.assertEqual(supplier.available, True)
         # self.assertEqual(pet.gender, Gender.MALE)
-        supplier = Supplier(name="amazon", category="drugs", available=False)
+        supplier = Supplier(name="amazon", category="drugs", available=False, status="enabled")
         self.assertEqual(supplier.available, False)
         # self.assertEqual(pet.gender, Gender.FEMALE)
 
@@ -88,7 +88,7 @@ class TestSupplierModel(unittest.TestCase):
         """Create a supplier and add it to the database"""
         suppliers = Supplier.all()
         self.assertEqual(suppliers, [])
-        supplier = Supplier(name="amazon", category="drugs", available=True)
+        supplier = Supplier(name="amazon", category="drugs", available=True, status="enabled")
         self.assertTrue(supplier is not None)
         self.assertEqual(supplier.id, None)
         supplier.create()
@@ -149,6 +149,7 @@ class TestSupplierModel(unittest.TestCase):
             "name": "walmart",
             "category": "drugs",
             "available": True,
+            "status": "enabled"
             #"gender": "FEMALE",
         }
         supplier = Supplier()
@@ -205,8 +206,8 @@ class TestSupplierModel(unittest.TestCase):
 
     def test_find_by_category(self):
         """Find Supplier by Category"""
-        Supplier(name="amazon", category="drugs", available=True).create()
-        Supplier(name="walmart", category="cosmetics", available=False).create()
+        Supplier(name="amazon", category="drugs", available=True, status="enabled").create()
+        Supplier(name="walmart", category="cosmetics", available=False, status="enabled").create()
         suppliers = Supplier.find_by_category("drugs")
         self.assertEqual(suppliers[0].category, "drugs")
         self.assertEqual(suppliers[0].name, "amazon")
@@ -214,8 +215,8 @@ class TestSupplierModel(unittest.TestCase):
 
     def test_find_by_name(self):
         """Find a Supplier by Name"""
-        Supplier(name="amazon", category="drugs", available=True).create()
-        Supplier(name="walmart", category="cosmetics", available=False).create()
+        Supplier(name="amazon", category="drugs", available=True, status="enabled").create()
+        Supplier(name="walmart", category="cosmetics", available=False, status="enabled").create()
         suppliers = Supplier.find_by_name("amazon")
         self.assertEqual(suppliers[0].category, "drugs")
         self.assertEqual(suppliers[0].name, "amazon")
@@ -223,9 +224,9 @@ class TestSupplierModel(unittest.TestCase):
 
     def test_find_by_availability(self):
         """Find Suppliers by Availability"""
-        Supplier(name="amazon", category="drugs", available=True).create()
-        Supplier(name="walmart", category="cosmetics", available=False).create()
-        Supplier(name="target", category="food", available=True).create()
+        Supplier(name="amazon", category="drugs", available=True, status="enabled").create()
+        Supplier(name="walmart", category="cosmetics", available=False, status="enabled").create()
+        Supplier(name="target", category="food", available=True, status="enabled").create()
         suppliers = Supplier.find_by_availability(False)
         supplier_list = list(suppliers)
         self.assertEqual(len(supplier_list), 1)

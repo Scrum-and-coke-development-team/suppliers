@@ -35,7 +35,7 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-on: [push]
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest

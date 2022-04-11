@@ -1,7 +1,7 @@
 # Suppliers Team
 
 
-[![Build Status](https://github.com/nyu-devops/lab-flask-tdd/actions/workflows/workflow.yml/badge.svg)](https://github.com/nyu-devops/lab-flask-tdd/actions)
+[![Build Status](https://github.com/nyu-devops/lab-flask-tdd/actions/workflows/workflow.yml/badge.svg)](https://github.com/nyu-devops/lab-flask-tdd/actions) 
 [![Codecov](https://codecov.io/gh/nyu-devops/lab-flask-tdd/branch/master/graph/badge.svg)](https://codecov.io/gh/nyu-devops/lab-flask-tdd/branch/master/graph/badge.svg)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 

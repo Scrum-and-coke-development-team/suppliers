@@ -6,7 +6,7 @@ Flask-SQLAlchemy==2.5.1
 psycopg2==2.9.3
 python-dotenv==0.19.2
 
-# Runtime
+# Runtime adding honcho
 gunicorn==20.1.0
 honcho>=1.0.1
 

@@ -35,3 +35,12 @@ Scenario: Create a Supplier
     Then I should see "supplier4" in the "name" field
     And I should see "electronics" in the "category" field
     And I should see "False" in the "availability" dropdown
+
+
+    Scenario: List all Suppliers
+    When I visit the "Home Page"
+    And I press the "Search" button
+    Then I should see "supplier1" in the results
+    And I should see "supplier2" in the results
+    And I should not see "supplier3" in the results
+    And I should see "supplier4" in the results

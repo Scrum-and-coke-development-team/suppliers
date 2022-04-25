@@ -38,20 +38,15 @@ Scenario: Create a Supplier
 
 Scenario: Delete a Supplier
     When I visit the "Home Page"
-    And I set the "name" to "supplier5"
+    And I set the "name" to "supplier4"
     And I set the "category" to "electronics"
-    And I select "false" in the "availability" dropdown
-    And I press the "Create" button
-    Then I should see the message "Success"
-    When I copy the "id" field
-    And I press the "Clear" button
-    Then the "id" field should be empty
-    And the "name" field should be empty
-    And the "category" field should be empty
-    And the "availability" field should be empty
-    When I paste the "id" field
-    And I press the "Delete" button
-    Then I should see the message "Supplier has been Deleted!"
-    When I press the "Clear" button
+    And I select "true" in the "availability" dropdown
     And I press the "Search" button
-    Then I should not see "supplier5" in the results
+    Then I should see "supplier4" in the "name" field
+    And I should see "electronics" in the "category" field
+    And I should see "true" in the "availability" dropdown
+    When I press the "Delete" button
+    Then I should see the message "Supplier has been Deleted!"
+    When I set the "name" to "supplier4"
+    And I press the "Search" button
+    Then I should not see "supplier4" in the results

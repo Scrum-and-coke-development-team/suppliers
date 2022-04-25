@@ -1,0 +1,18 @@
+
+---
+# This manifest deploys a Python Flask application with a Cloudant database
+applications:
+- name: nyu-supplier-service-sp2201
+  path: .
+  instances: 2
+  memory: 64M
+  host: nyu-supplier-service-sp2201
+  domain: us-south.cf.appdomain.cloud  
+  disk_quota: 1024M
+  buildpack: python_buildpack
+  timeout: 180
+  services:
+  - Cloudant
+  env:
+    FLASK_APP : app:app
+    FLASK_DEBUG : false

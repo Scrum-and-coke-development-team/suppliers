@@ -37,7 +37,7 @@ Scenario: Create a Supplier
     Then I should see "supplier4" in the "name" field
     And I should see "electronics" in the "category" field
     And I should see "true" in the "available" dropdown
-    And I should see "disabled"
+    And I should see "disabled" in the "status" dropdown
 
 
     Scenario: List all Suppliers

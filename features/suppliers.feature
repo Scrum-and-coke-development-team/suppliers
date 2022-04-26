@@ -44,3 +44,28 @@ Scenario: Create a Supplier
     And I should see "supplier2" in the results
     And I should not see "supplier3" in the results
     And I should see "supplier4" in the results
+
+
+    Scenario: Update a Supplier
+    When I visit the "Home Page"
+    And I set the "name" to "supplier1"
+    And I press the "Search" button
+    Then I should see "supplier1" in the "name" field
+    And I should see "drugs" in the "category" field
+    And I should see "true" in the "availability" dropdown
+    When I change "name" to "supplier4"
+    And I change "category" to "food"
+    And I select "true" in the "availability" dropdown 
+    And I press the "Update" button
+    Then I should see the message "Success"
+    When I copy the "Id" field
+    And I press the "Clear" button
+    And I paste the "Id" field
+    And I press the "Retrieve" button
+    Then I should see "supplier4" in the "name" field
+    And I should see "food" in the "category" field
+    And I should see "true" in the "availability" dropdown
+    When I press the "Clear" button
+    And I press the "Search" button
+    Then I should see "supplier4" in the results
+    And I should not see "supplier1" in the results

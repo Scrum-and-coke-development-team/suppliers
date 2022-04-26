@@ -5,11 +5,11 @@ Feature: The supplier service back-end
 
 Background:
     Given the following suppliers
-    | name       | category    | available |
-    | supplier1  | drugs       | true         |
-    | supplier2  | cosmetics   | true         |
-    | supplier3  | food        | false        |
-    | supplier4  | electronics | true         |
+        | name      | category    | available | status   |
+        | supplier1 | drugs       | true      | disabled |
+        | supplier2 | cosmetics   | true      | enabled  |
+        | supplier3 | food        | false     | disabled |
+        | supplier4 | electronics | true      | disabled |
 
 
 Scenario: The server is running
@@ -22,6 +22,7 @@ Scenario: Create a Supplier
     And I set the "name" to "supplier4"
     And I set the "category" to "electronics"
     And I select "false" in the "available" dropdown
+    And I select "disabled" in the "status" dropdown
     And I press the "Create" button
     Then I should see the message "Success"
     When I copy the "Id" field
@@ -30,11 +31,13 @@ Scenario: Create a Supplier
     And the "name" field should be empty
     And the "category" field should be empty
     And the "available" field should be empty
+    And the "status" field should be empty
     When I paste the "id" field
     And I press the "Retrieve" button
     Then I should see "supplier4" in the "name" field
     And I should see "electronics" in the "category" field
-    And I should see "False" in the "available" dropdown
+    And I should see "true" in the "available" dropdown
+    And I should see "disabled"
 
 
     Scenario: List all Suppliers

@@ -9,7 +9,7 @@ Background:
         | 120 | supplier1 | drugs       | true      | disabled |
         | 121 | supplier2 | cosmetics   | true      | enabled  |
         | 122 | supplier3 | food        | false     | disabled |
-        | 123 | supplier4 | electronics | true      | disabled |
+        | 123 | supplier4 | electronics | false     | disabled |
 
 
 Scenario: The server is running
@@ -19,7 +19,7 @@ Scenario: The server is running
 
 Scenario: Create a Supplier
     When I visit the "Home Page"
-    And I set the "name" to "supplier4"
+    And I set the "name" to "supplier5"
     And I set the "category" to "electronics"
     And I select "true" in the "available" dropdown
     And I select "disabled" in the "status" dropdown
@@ -34,7 +34,7 @@ Scenario: Create a Supplier
     And the "status" field should be empty
     When I paste the "id" field
     And I press the "Retrieve" button
-    Then I should see "supplier4" in the "name" field
+    Then I should see "supplier5" in the "name" field
     And I should see "electronics" in the "category" field
     And I should see "true" in the "available" dropdown
     And I should see "disabled" in the "status" dropdown

@@ -32,7 +32,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support import expected_conditions
 
-ID_PREFIX = 'pet_'
+ID_PREFIX = 'supplier_'
 
 @when('I visit the "home page"')
 def step_impl(context):

@@ -5,23 +5,23 @@ Feature: The supplier service back-end
 
 Background:
     Given the following suppliers
-        | name      | category    | available | status   |
-        | supplier1 | drugs       | true      | disabled |
-        | supplier2 | cosmetics   | true      | enabled  |
-        | supplier3 | food        | false     | disabled |
-        | supplier4 | electronics | true      | disabled |
+        | id  | name      | category    | available | status   |
+        | 120 | supplier1 | drugs       | true      | disabled |
+        | 121 | supplier2 | cosmetics   | true      | enabled  |
+        | 122 | supplier3 | food        | false     | disabled |
+        | 123 | supplier4 | electronics | true      | disabled |
 
 
 Scenario: The server is running
     When I visit the "Home Page"
-    Then I should see "Supplier Demo RESTful Service" in the title
+    Then I should see "supplier Demo RESTful Service" in the title
     And I should not see "404 Not Found"
 
 Scenario: Create a Supplier
     When I visit the "Home Page"
     And I set the "name" to "supplier4"
     And I set the "category" to "electronics"
-    And I select "false" in the "available" dropdown
+    And I select "true" in the "available" dropdown
     And I select "disabled" in the "status" dropdown
     And I press the "Create" button
     Then I should see the message "Success"

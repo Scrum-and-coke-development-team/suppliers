@@ -25,7 +25,7 @@ Attributes:
 -----------
 name (string) - the name of the supplier
 category (string) - the category the supplier belongs to
-availability (boolean) - whether or not the supplier is available
+available (boolean) - whether or not the supplier is available
 
 """
 import logging

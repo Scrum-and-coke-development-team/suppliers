@@ -37,12 +37,14 @@ $(function () {
 
     $("#create-btn").click(function () {
 
+        let id = $("#supplier_id").val();
         let name = $("#supplier_name").val();
         let category = $("#supplier_category").val();
         let available = $("#supplier_available").val() == "true";
         let status = $("#supplier_status").val();
 
         let data = {
+            "id": id,
             "name": name,
             "category": category,
             "available": available,
@@ -75,13 +77,14 @@ $(function () {
 
     $("#update-btn").click(function () {
 
-        let supplier_id = $("#supplier_id").val();
+        let id = $("#supplier_id").val();
         let name = $("#supplier_name").val();
         let category = $("#supplier_category").val();
         let available = $("#supplier_available").val() == "true";
         let status = $("#supplier_status").val();
 
         let data = {
+            "id": id,
             "name": name,
             "category": category,
             "available": available,
@@ -114,7 +117,7 @@ $(function () {
 
     $("#retrieve-btn").click(function () {
 
-        let supplier_id = $("#supplier_id").val();
+        let id = $("#supplier_id").val();
 
         $("#flash_message").empty();
 
@@ -144,7 +147,7 @@ $(function () {
 
     $("#delete-btn").click(function () {
 
-        let supplier_id = $("#supplier_id").val();
+        let id = $("#supplier_id").val();
 
         $("#flash_message").empty();
 
@@ -181,6 +184,7 @@ $(function () {
 
     $("#search-btn").click(function () {
 
+        let id = $("#supplier_id").val();
         let name = $("#supplier_name").val();
         let category = $("#supplier_category").val();
         let available = $("#supplier_available").val() == "true";

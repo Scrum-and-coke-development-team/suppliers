@@ -14,6 +14,7 @@ $(function () {
         } else {
             $("#supplier_available").val("false");
         }
+        $("#supplier_status").val(res.status);
     }
 
     /// Clears all form fields
@@ -21,6 +22,7 @@ $(function () {
         $("#supplier_name").val("");
         $("#supplier_category").val("");
         $("#supplier_available").val("");
+        $("#supplier_status").val("");
     }
 
     // Updates the flash message area
@@ -38,11 +40,13 @@ $(function () {
         let name = $("#supplier_name").val();
         let category = $("#supplier_category").val();
         let available = $("#supplier_available").val() == "true";
+        let status = $("#supplier_status").val();
 
         let data = {
             "name": name,
             "category": category,
-            "available": available
+            "available": available,
+            "stauts": status
         };
 
         $("#flash_message").empty();
@@ -75,11 +79,13 @@ $(function () {
         let name = $("#supplier_name").val();
         let category = $("#supplier_category").val();
         let available = $("#supplier_available").val() == "true";
+        let status = $("#supplier_status").val();
 
         let data = {
             "name": name,
             "category": category,
-            "available": available
+            "available": available,
+            "status": status
         };
 
         $("#flash_message").empty();
@@ -178,6 +184,7 @@ $(function () {
         let name = $("#supplier_name").val();
         let category = $("#supplier_category").val();
         let available = $("#supplier_available").val() == "true";
+        let status = $("#supplier_status").val();
 
         let queryString = ""
 
@@ -199,6 +206,14 @@ $(function () {
             }
         }
 
+        if (status) {
+            if (queryString.length > 0) {
+                queryString += '&status=' + status
+            } else {
+                queryString += 'status=' + status
+            }
+        }
+
         $("#flash_message").empty();
 
         let ajax = $.ajax({
@@ -217,11 +232,12 @@ $(function () {
             table += '<th class="col-md-2">Name</th>'
             table += '<th class="col-md-2">Category</th>'
             table += '<th class="col-md-2">Available</th>'
+            table += '<th class="col-md-2">Status</th>'
             table += '</tr></thead><tbody>'
             let firstsupplier = "";
             for(let i = 0; i < res.length; i++) {
                 let supplier = res[i];
-                table +=  `<tr id="row_${i}"><td>${supplier._id}</td><td>${supplier.name}</td><td>${supplier.category}</td><td>${supplier.available}</td>`;
+                table +=  `<tr id="row_${i}"><td>${supplier._id}</td><td>${supplier.name}</td><td>${supplier.category}</td><td>${supplier.available}</td><td>${supplier.status}</td>`;
                 if (i == 0) {
                     firstsupplier = supplier;
                 }

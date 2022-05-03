@@ -22,7 +22,7 @@ Scenario: Create a Supplier
     And I set the "name" to "supplier5"
     And I set the "category" to "electronics"
     And I select "True" in the "Available" dropdown
-    And I set the "status" to "disabled"
+    And I set the "status" to "Disabled"
     And I press the "Create" button
     Then I should see the message "Success"
     When I copy the "ID" field

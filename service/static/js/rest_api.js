@@ -46,7 +46,7 @@ $(function () {
             "name": name,
             "category": category,
             "available": available,
-            "stauts": status
+            "status": status
         };
 
         $("#flash_message").empty();

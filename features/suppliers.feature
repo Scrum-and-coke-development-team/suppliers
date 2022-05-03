@@ -11,7 +11,6 @@ Background:
    | 122 | supplier3 | food        | False     | disabled |
    | 123 | supplier4 | electronics | False     | disabled |
 
-
 Scenario: The server is running
     When I visit the "Home Page"
     Then I should see "supplier Demo RESTful Service" in the title
@@ -22,7 +21,7 @@ Scenario: Create a Supplier
     And I set the "name" to "supplier5"
     And I set the "category" to "electronics"
     And I select "True" in the "Available" dropdown
-    And I select "Disabled" in the "status" dropdown
+    And I select "Disabled" in the "Status" dropdown
     And I press the "Create" button
     Then I should see the message "Success"
     When I copy the "ID" field
@@ -38,7 +37,6 @@ Scenario: Create a Supplier
     And I should see "electronics" in the "category" field
     And I should see "true" in the "available" dropdown
     And I should see "disabled" in the "status" dropdown
-
 
     Scenario: List all Suppliers
     When I visit the "Home Page"
@@ -74,3 +72,18 @@ Scenario: Create a Supplier
     And I should see "supplier2" in the results
     And I should not see "supplier3" in the results
     And I should not see "supplier4" in the results
+
+    Scenario: Delete a Supplier
+    When I visit the "Home Page"
+    And I set the "name" to "supplier4"
+    And I set the "category" to "electronics"
+    And I select "true" in the "available" dropdown
+    And I press the "Search" button
+    Then I should see "supplier4" in the "name" field
+    And I should see "electronics" in the "category" field
+    And I should see "true" in the "available" dropdown
+    When I press the "Delete" button
+    Then I should see the message "Supplier has been Deleted!"
+    When I set the "name" to "supplier4"
+    And I press the "Search" button
+    Then I should not see "supplier4" in the results

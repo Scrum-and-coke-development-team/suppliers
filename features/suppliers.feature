@@ -5,11 +5,11 @@ Feature: The supplier service back-end
 
 Background:
     Given the following suppliers
-        | name      | category    | available | status   |
-        | supplier1 | drugs       | True      | disabled |
-        | supplier2 | cosmetics   | True      | enabled  |
-        | supplier3 | food        | False     | disabled |
-        | supplier4 | electronics | False     | disabled |
+   | id  | name      | category    | available | status   |
+   | 120 | supplier1 | drugs       | True      | disabled |
+   | 121 | supplier2 | cosmetics   | True      | enabled  |
+   | 122 | supplier3 | food        | False     | disabled |
+   | 123 | supplier4 | electronics | False     | disabled |
 
 
 Scenario: The server is running

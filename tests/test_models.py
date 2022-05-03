@@ -57,15 +57,15 @@ class TestSupplierModel(unittest.TestCase):
         """This runs once after the entire test suite"""
         db.session.close()
 
-    def setUp(self):
-        """This runs before each test"""
-        db.drop_all()  # clean up the last tests
-        db.create_all()  # make our sqlalchemy tables
+     def setUp(self):
+        """Runs before each test"""
+        self.app = app.test_client()
+        db.session.query(Supplier).delete() # clean up the last tests
+        db.session.commit()
 
     def tearDown(self):
         """This runs after each test"""
         db.session.remove()
-        db.drop_all()
 
     ######################################################################
     #  T E S T   C A S E S

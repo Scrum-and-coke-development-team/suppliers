@@ -5,11 +5,11 @@ Feature: The supplier service back-end
 
 Background:
     Given the following suppliers
-        | id  | name      | category    | available | status   |
-        | 120 | supplier1 | drugs       | true      | disabled |
-        | 121 | supplier2 | cosmetics   | true      | enabled  |
-        | 122 | supplier3 | food        | false     | disabled |
-        | 123 | supplier4 | electronics | false     | disabled |
+        | name      | category    | available | status   |
+        | supplier1 | drugs       | True      | disabled |
+        | supplier2 | cosmetics   | True      | enabled  |
+        | supplier3 | food        | False     | disabled |
+        | supplier4 | electronics | False     | disabled |
 
 
 Scenario: The server is running
@@ -21,13 +21,13 @@ Scenario: Create a Supplier
     When I visit the "Home Page"
     And I set the "name" to "supplier5"
     And I set the "category" to "electronics"
-    And I select "true" in the "available" dropdown
-    And I select "disabled" in the "status" dropdown
+    And I select "True" in the "Available" dropdown
+    And I set the "status" to "disabled"
     And I press the "Create" button
     Then I should see the message "Success"
-    When I copy the "Id" field
+    When I copy the "ID" field
     And I press the "Clear" button
-    Then the "id" field should be empty
+    Then the "ID" field should be empty
     And the "name" field should be empty
     And the "category" field should be empty
     And the "available" field should be empty
@@ -45,7 +45,7 @@ Scenario: Create a Supplier
     And I press the "Search" button
     Then I should see "supplier1" in the results
     And I should see "supplier2" in the results
-    And I should not see "supplier3" in the results
+    And I should not see "supplier5" in the results
     And I should see "supplier4" in the results
 
     Scenario: Search for Suppliers
@@ -66,11 +66,11 @@ Scenario: Create a Supplier
     And I should not see "supplier3" in the results
     And I should not see "supplier4" in the results
 
-    Scenario: Search for Suppliers
+    Scenario: Search for Available
     When I visit the "Home Page"
-    And I set the "Available" to "true"
+    And I select "True" in the "Available" dropdown
     And I press the "Search" button
     Then I should see "supplier1" in the results
     And I should see "supplier2" in the results
     And I should not see "supplier3" in the results
-    And I should see "supplier4" in the results
+    And I should not see "supplier4" in the results

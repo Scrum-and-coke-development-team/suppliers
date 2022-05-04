@@ -58,14 +58,14 @@ class TestSupplierModel(unittest.TestCase):
         db.session.close()
 
     def setUp(self):
-        """This runs before each test"""
-        db.drop_all()  # clean up the last tests
-        db.create_all()  # make our sqlalchemy tables
+        """Runs before each test"""
+        self.app = app.test_client()
+        db.session.query(Supplier).delete() # clean up the last tests
+        db.session.commit()
 
     def tearDown(self):
         """This runs after each test"""
         db.session.remove()
-        db.drop_all()
 
     ######################################################################
     #  T E S T   C A S E S
@@ -93,7 +93,7 @@ class TestSupplierModel(unittest.TestCase):
         self.assertEqual(supplier.id, None)
         supplier.create()
         # Assert that it was assigned an id and shows up in the database
-        self.assertEqual(supplier.id, 1)
+        self.assertIsNotNone(supplier.id)
         suppliers = Supplier.all()
         self.assertEqual(len(suppliers), 1)
 
@@ -101,9 +101,10 @@ class TestSupplierModel(unittest.TestCase):
         """Update a Supplier"""
         supplier = SupplierFactory()
         logging.debug(supplier)
+        supplier.id = None
         supplier.create()
         logging.debug(supplier)
-        self.assertEqual(supplier.id, 1)
+        self.assertIsNotNone(supplier.id)
         # Change it an save it
         supplier.category = "cosmetics"
         original_id = supplier.id
@@ -114,7 +115,7 @@ class TestSupplierModel(unittest.TestCase):
         # but the data did change
         suppliers = Supplier.all()
         self.assertEqual(len(suppliers), 1)
-        self.assertEqual(suppliers[0].id, 1)
+        self.assertEqual(suppliers[0].id, original_id)
         self.assertEqual(suppliers[0].category, "cosmetics")
 
     def test_delete_a_supplier(self):

@@ -5,11 +5,11 @@ Feature: The supplier service back-end
 
 Background:
     Given the following suppliers
-   | id  | name      | category    | available | status   |
-   | 120 | supplier1 | drugs       | True      | disabled |
-   | 121 | supplier2 | cosmetics   | True      | enabled  |
-   | 122 | supplier3 | food        | False     | disabled |
-   | 123 | supplier4 | electronics | False     | disabled |
+    | name      | category    | available | status   |
+    | supplier1 | drugs       | True      | disabled |
+    | supplier2 | cosmetics   | True      | enabled  |
+    | supplier3 | food        | False     | disabled |
+    | supplier4 | electronics | False     | disabled |
 
 Scenario: The server is running
     When I visit the "Home Page"
@@ -22,7 +22,7 @@ Scenario: Create a Supplier
     And I set the "name" to "supplier5"
     And I set the "category" to "electronics"
     And I select "True" in the "Available" dropdown
-    And I select "Disabled" in the "Status" dropdown
+    And I select "disabled" in the "Status" dropdown
     And I press the "Create" button
     Then I should see the message "Success"
     When I copy the "id" field
@@ -80,7 +80,7 @@ Scenario: Create a Supplier
     And I set the "name" to "supplier7"
     And I set the "category" to "electronics"
     And I select "True" in the "Available" dropdown
-    And I select "Disabled" in the "Status" dropdown
+    And I select "disabled" in the "Status" dropdown
     And I press the "Create" button
     Then I should see the message "Success"
     When I copy the "id" field

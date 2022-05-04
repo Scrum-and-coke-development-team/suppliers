@@ -6,7 +6,7 @@ $(function () {
 
     // Updates the form with data from the response
     function update_form_data(res) {
-        $("#supplier_id").val(res._id);
+        $("#supplier_id").val(res.id);
         $("#supplier_name").val(res.name);
         $("#supplier_category").val(res.category);
         if (res.available == true) {
@@ -37,14 +37,12 @@ $(function () {
 
     $("#create-btn").click(function () {
 
-        let id = $("#supplier_id").val();
         let name = $("#supplier_name").val();
         let category = $("#supplier_category").val();
         let available = $("#supplier_available").val() == "true";
         let status = $("#supplier_status").val();
 
         let data = {
-            "id": id,
             "name": name,
             "category": category,
             "available": available,
@@ -84,7 +82,6 @@ $(function () {
         let status = $("#supplier_status").val();
 
         let data = {
-            "id": id,
             "name": name,
             "category": category,
             "available": available,
@@ -123,7 +120,7 @@ $(function () {
 
         let ajax = $.ajax({
             type: "GET",
-            url: `/suppliers/${supplier_id}`,
+            url: `/suppliers/${id}`,
             contentType: "application/json",
             data: ''
         })
@@ -204,9 +201,20 @@ $(function () {
         }
         if (available) {
             if (queryString.length > 0) {
-                queryString += '&available=' + available
+                if (available == true){
+                    queryString += '&available = t'
+                }
+                else {
+                    queryString += '&available = f' 
+                };
+
             } else {
-                queryString += 'available=' + available
+                if (available == true){
+                    queryString += 'available = t'
+                }
+                else {
+                    queryString += 'available = f' 
+                };
             }
         }
 
@@ -241,7 +249,7 @@ $(function () {
             let firstsupplier = "";
             for(let i = 0; i < res.length; i++) {
                 let supplier = res[i];
-                table +=  `<tr id="row_${i}"><td>${supplier._id}</td><td>${supplier.name}</td><td>${supplier.category}</td><td>${supplier.available}</td><td>${supplier.status}</td>`;
+                table +=  `<tr id="row_${i}"><td>${supplier.id}</td><td>${supplier.name}</td><td>${supplier.category}</td><td>${supplier.available}</td><td>${supplier.status}</td>`;
                 if (i == 0) {
                     firstsupplier = supplier;
                 }

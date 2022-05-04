@@ -42,7 +42,6 @@ def step_impl(context):
     create_url = context.base_url + '/suppliers'
     for row in context.table:
         data = {
-            "id": row['id'],
             "name": row['name'],
             "category": row['category'],
             "available": row['available'] in ['True', 'true', '1'],

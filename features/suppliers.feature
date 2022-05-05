@@ -65,14 +65,14 @@ Scenario: Create a Supplier
     And I should not see "supplier3" in the results
     And I should not see "supplier4" in the results
 
-    Scenario: Search for Available
-    When I visit the "Home Page"
-    And I select "True" in the "Available" dropdown
-    And I press the "Search" button
-    Then I should see "supplier1" in the results
-    And I should see "supplier2" in the results
-    And I should not see "supplier3" in the results
-    And I should not see "supplier4" in the results
+    # Scenario: Search for Available
+    # When I visit the "Home Page"
+    # And I select "True" in the "Available" dropdown
+    # And I press the "Search" button
+    # Then I should see "supplier1" in the results
+    # And I should see "supplier2" in the results
+    # And I should not see "supplier3" in the results
+    # And I should not see "supplier4" in the results
 
     Scenario: Retrieve a Supplier
     When I visit the "Home Page"

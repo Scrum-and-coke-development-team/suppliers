@@ -1,3 +1,4 @@
+
 ######################################################################
 # Copyright 2016, 2021 John J. Rofrano. All Rights Reserved.
 #
@@ -27,6 +28,7 @@ import requests
 from behave import given
 from compare import expect
 
+
 @given('the following suppliers')
 def step_impl(context):
     """ Delete all Suppliers and load new ones """
@@ -35,6 +37,7 @@ def step_impl(context):
     context.resp = requests.get(context.base_url + '/suppliers', headers=headers)
     expect(context.resp.status_code).to_equal(200)
     for supplier in context.resp.json():
+
         context.resp = requests.delete(context.base_url + '/suppliers/' + str(supplier["id"]), headers=headers)
         expect(context.resp.status_code).to_equal(204)
     
@@ -46,9 +49,9 @@ def step_impl(context):
             "category": row['category'],
             "available": row['available'] in ['True', 'true', '1'],
             "status": row['status']
+
         }
         payload = json.dumps(data)
         context.resp = requests.post(create_url, data=payload, headers=headers)
         expect(context.resp.status_code).to_equal(201)
 
-    

@@ -150,14 +150,14 @@ $(function () {
 
         let ajax = $.ajax({
             type: "DELETE",
-            url: `/suppliers/${supplier_id}`,
+            url: `/suppliers/${id}`,
             contentType: "application/json",
             data: '',
         })
 
         ajax.done(function(res){
             clear_form_data()
-            flash_message("supplier has been Deleted!")
+            flash_message("Supplier has been Deleted!")
         });
 
         ajax.fail(function(res){

@@ -1,21 +1,32 @@
+
+######################################################################
+# Copyright 2016, 2021 John J. Rofrano. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+######################################################################
+
 """
 Supplier Steps
-Steps file for suppliers.feature
-"""
 
-from os import getenv
-import logging
+Steps file for Supplier.feature
+
+For information on Waiting until elements are present in the HTML see:
+    https://selenium-python.readthedocs.io/waits.html
+"""
 import json
 import requests
-from behave import *
-from compare import expect, ensure
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support import expected_conditions
-
-WAIT_SECONDS = int(getenv('WAIT_SECONDS', '60'))
-ID_PREFIX = 'supplier_'
+from behave import given
+from compare import expect
 
 
 @given('the following suppliers')
@@ -26,168 +37,21 @@ def step_impl(context):
     context.resp = requests.get(context.base_url + '/suppliers', headers=headers)
     expect(context.resp.status_code).to_equal(200)
     for supplier in context.resp.json():
-        context.resp = requests.delete(context.base_url + '/suppliers/' + str(supplier["_id"]), headers=headers)
-        expect(context.resp.status_code).to_equal(204)
 
+        context.resp = requests.delete(context.base_url + '/suppliers/' + str(supplier["id"]), headers=headers)
+        expect(context.resp.status_code).to_equal(204)
+    
     # load the database with new suppliers
     create_url = context.base_url + '/suppliers'
     for row in context.table:
-        products = [int(product) for product in row['products'].split(",")]
         data = {
             "name": row['name'],
             "category": row['category'],
-            "availability": row['availability'] in [ 'true', 'false'],
+            "available": row['available'] in ['True', 'true', '1'],
+            "status": row['status']
+
         }
         payload = json.dumps(data)
         context.resp = requests.post(create_url, data=payload, headers=headers)
         expect(context.resp.status_code).to_equal(201)
 
-
-@when('I visit the "Home Page"')
-def step_impl(context):
-    """ Make a call to the base URL """
-    context.driver.get(context.base_url)
-
-
-@then('I should see "{message}" in the title')
-def step_impl(context, message):
-    """ Check the document title for a message """
-    expect(context.driver.title).to_contain(message)
-
-
-@then('I should not see "{message}"')
-def step_impl(context, message):
-    error_msg = "I should not see '%s' in '%s'" % (message, context.resp.text)
-    ensure(message in context.resp.text, False, error_msg)
-
-@when('I set the "{element_name}" to "{text_string}"')
-def step_impl(context, element_name, text_string):
-    element_id = ID_PREFIX + element_name.lower()
-    element = context.driver.find_element_by_id(element_id)
-    element.clear()
-    element.send_keys(text_string)
-
-@when('I set the array "{element_name}" to "{text_string}"')
-def step_impl(context, element_name, text_string):
-    element_id = ID_PREFIX + element_name.lower()
-    element = context.driver.find_element_by_id(element_id)
-    element.clear()
-    text_string = [int(text_string) for text_string in text_string.split(",")]
-    print(text_string)
-    element.send_keys(str(text_string))
-
-@when('I select "{text}" in the "{element_name}" dropdown')
-def step_impl(context, text, element_name):
-    element_id = ID_PREFIX + element_name.lower()
-    element = Select(context.driver.find_element_by_id(element_id))
-    element.select_by_visible_text(text)
-
-
-@then('I should see "{text}" in the "{element_name}" dropdown')
-def step_impl(context, text, element_name):
-    element_id = ID_PREFIX + element_name.lower()
-    element = Select(context.driver.find_element_by_id(element_id))
-    expect(element.first_selected_option.text).to_equal(text)
-
-@then('the "{element_name}" field should be empty')
-def step_impl(context, element_name):
-    element_id = ID_PREFIX + element_name.lower()
-    element = context.driver.find_element_by_id(element_id)
-    expect(element.get_attribute('value')).to_be(u'')
-
-
-##################################################################
-# These two function simulate copy and paste
-##################################################################
-@when('I copy the "{element_name}" field')
-def step_impl(context, element_name):
-    element_id = ID_PREFIX + element_name.lower()
-    # element = context.driver.find_element_by_id(element_id)
-    element = WebDriverWait(context.driver, WAIT_SECONDS).until(
-        expected_conditions.presence_of_element_located((By.ID, element_id))
-    )
-    context.clipboard = element.get_attribute('value')
-    logging.info('Clipboard contains: %s', context.clipboard)
-
-@when('I paste the "{element_name}" field')
-def step_impl(context, element_name):
-    element_id = ID_PREFIX + element_name.lower()
-    # element = context.driver.find_element_by_id(element_id)
-    element = WebDriverWait(context.driver, WAIT_SECONDS).until(
-        expected_conditions.presence_of_element_located((By.ID, element_id))
-    )
-    element.clear()
-    element.send_keys(context.clipboard)
-
-##################################################################
-# This code works because of the following naming convention:
-# The buttons have an id in the html hat is the button text
-# in lowercase followed by '-btn' so the Clean button has an id of
-# id='clear-btn'. That allows us to lowercase the name and add '-btn'
-# to get the element id of any button
-##################################################################
-
-@when('I press the "{button}" button')
-def step_impl(context, button):
-    button_id = button.lower() + '-btn'
-    context.driver.find_element_by_id(button_id).click()
-
-@then('I should see "{name}" in the results')
-def step_impl(context, name):
-    # element = context.driver.find_element_by_id('search_results')
-    # expect(element.text).to_contain(name)
-    found = WebDriverWait(context.driver, WAIT_SECONDS).until(
-        expected_conditions.text_to_be_present_in_element(
-            (By.ID, 'search_results'),
-            name
-        )
-    )
-    expect(found).to_be(True)
-
-@then('I should not see "{name}" in the results')
-def step_impl(context, name):
-    element = context.driver.find_element_by_id('search_results')
-    error_msg = "I should not see '%s' in '%s'" % (name, element.text)
-    ensure(name in element.text, False, error_msg)
-
-@then('I should see the message "{message}"')
-def step_impl(context, message):
-    # element = context.driver.find_element_by_id('flash_message')
-    # expect(element.text).to_contain(message)
-    found = WebDriverWait(context.driver, WAIT_SECONDS).until(
-        expected_conditions.text_to_be_present_in_element(
-            (By.ID, 'flash_message'),
-            message
-        )
-    )
-    expect(found).to_be(True)
-
-##################################################################
-# This code works because of the following naming convention:
-# The id field for text input in the html is the element name
-# prefixed by ID_PREFIX so the Name field has an id='supplier_name'
-# We can then lowercase the name and prefix with supplier_ to get the id
-##################################################################
-
-@then('I should see "{text_string}" in the "{element_name}" field')
-def step_impl(context, text_string, element_name):
-    element_id = ID_PREFIX + element_name.lower()
-    # element = context.driver.find_element_by_id(element_id)
-    # expect(element.get_attribute('value')).to_equal(text_string)
-    found = WebDriverWait(context.driver, WAIT_SECONDS).until(
-        expected_conditions.text_to_be_present_in_element_value(
-            (By.ID, element_id),
-            text_string
-        )
-    )
-    expect(found).to_be(True)
-
-@when('I change "{element_name}" to "{text_string}"')
-def step_impl(context, element_name, text_string):
-    element_id = ID_PREFIX + element_name.lower()
-    # element = context.driver.find_element_by_id(element_id)
-    element = WebDriverWait(context.driver, WAIT_SECONDS).until(
-        expected_conditions.presence_of_element_located((By.ID, element_id))
-    )
-    element.clear()
-    element.send_keys(text_string)

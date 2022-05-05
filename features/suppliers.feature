@@ -102,11 +102,13 @@ Scenario: Create a Supplier
     When I visit the "Home Page"
     And I set the "name" to "supplier4"
     And I set the "category" to "electronics"
-    And I select "True" in the "available" dropdown
+    And I select "False" in the "available" dropdown
+    And I select "disabled" in the "Status" dropdown
     And I press the "Search" button
     Then I should see "supplier4" in the "name" field
     And I should see "electronics" in the "category" field
-    And I should see "True" in the "available" dropdown
+    And I should see "False" in the "available" dropdown
+    And I should see "disabled" in the "Status" dropdown
     When I press the "Delete" button
     Then I should see the message "Supplier has been Deleted!"
     When I set the "name" to "supplier4"

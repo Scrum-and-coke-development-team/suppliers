@@ -114,3 +114,13 @@ Scenario: Create a Supplier
     When I set the "name" to "supplier4"
     And I press the "Search" button
     Then I should not see "supplier4" in the results
+
+    Scenario: Disable a Supplier (setting available to false)
+    When I visit the "Home Page"
+    And I press the "Search" button
+    Then I should see "supplier1" in the "Name" field
+    And I should see "True" in the "available" dropdown
+    When I press the "Disable" button
+    Then I should see the message "Success"
+    And I should see "False" in the "available" field
+

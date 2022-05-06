@@ -1,6 +1,6 @@
 
 ---
-# This manifest deploys a Python Flask application with a Cloudant database
+# This manifest deploys a Python Flask application with a ElephantSQL database
 applications:
 - name: nyu-supplier-service-sp2201
   path: .

@@ -92,7 +92,7 @@ $(function () {
 
         let ajax = $.ajax({
                 type: "PUT",
-                url: `/suppliers/${supplier_id}`,
+                url: `/suppliers/${id}`,
                 contentType: "application/json",
                 data: JSON.stringify(data)
             })
